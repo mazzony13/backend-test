@@ -39,9 +39,7 @@ class RegisterController extends Controller
                 'access_token'  => $token,
                 'token_type'    => 'Bearer'
             ]);
-
         }catch(\Exception $e){
-            dd($e);
             return response()->json([
                 'message' => 'Error Occured on register please try again'
             ], 500);
