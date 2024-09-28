@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Api\v1\Product;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\ProductRequest;
 use App\Interfaces\ProductRepositoryInterface; // get product repository
 
-class CreateController extends Controller
+class DeleteController extends Controller
 {
 
     //initiate product repository
@@ -20,18 +19,23 @@ class CreateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(ProductRequest $request)
+    public function __invoke($uuid)
     {
-
         try{
-            $product  = $this->productRepository->createProduct($request->all()); // get returned product from repository
+            $product  = $this->productRepository->deleteProduct($uuid); // get returned product from repository
+
+            if(!$product)
+                return response()->json([
+                    'message' => 'Product Not Found'
+                ], 404);
+
             return response()->json([
-                'message'       => 'Product Created successfully',
+                'message'       => 'Product deleted successfully',
             ]);
 
         }catch(\Exception $e){
             return response()->json([
-                'message' => 'Error Occured on creating product'
+                'message' => 'Error Occured on updating product'
             ], 500);
         }
     }

@@ -2,33 +2,44 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\UserRepositoryInterface;
+use App\Interfaces\UserTypeRepositoryInterface;
 use App\Models\UserType;
 
-class UserTypeRepository implements UserRepositoryInterface
+class UserTypeRepository implements UserTypeRepositoryInterface
 {
-    public function getAllTypes()
+    public function getAllUserTypes()
     {
-        return UserType::where('is_active')->get();
+        return UserType::get();
     }
 
-    public function getType(string $uuid)
+    public function getUserType(int $id)
     {
-        return UserType::where('uuid',$uuid)->first() ?? null;
+        return UserType::find($id) ?? null;
     }
 
-    public function deleteType(string $uuid)
+    public function deleteUserType(int $id)
     {
-        UserType::where('uuid',$uuid)->delete();
+        $user_type = UserType::find($id);
+
+        if(!$user_type)
+            return false;
+
+        $user_type->delete();
+        return true;
     }
 
-    public function createType(array $data)
+    public function createUserType(array $data)
     {
         return UserType::create($data);
     }
 
-    public function updateType(string $uuid, array $newData)
+    public function updateUserType(int $id, array $newData)
     {
-        return UserType::where('uuid',$uuid)->update($newData);
+        $user_type = UserType::find($id);
+
+        if(!$user_type)
+            return false;
+
+        return UserType::findOrFail($id)->update($newData);
     }
 }

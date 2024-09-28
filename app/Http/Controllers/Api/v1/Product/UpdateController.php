@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Api\v1\Product;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\ProductRequest;
-use App\Repositories\ProductRepository; // get product repository
+use App\Interfaces\ProductRepositoryInterface; // get product repository
 
 class UpdateController extends Controller
 {
 
     //initiate product repository
-    public function __construct(ProductRepository $productRepository)
+    public function __construct(ProductRepositoryInterface $productRepository)
     {
         $this->productRepository = $productRepository;
     }

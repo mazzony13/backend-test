@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Api\v1\Product;
+namespace App\Http\Controllers\Api\v1\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\v1\ProductResource;
-use App\Interfaces\ProductRepositoryInterface; // get product repository
+use App\Http\Resources\v1\UserResource;
+use App\Interfaces\UserRepositoryInterface; // get product repository
 
 class ShowController extends Controller
 {
 
      //initiate product repository
-     public function __construct(ProductRepositoryInterface $productRepository)
+     public function __construct(UserRepositoryInterface $productRepository)
      {
          $this->productRepository = $productRepository;
      }
@@ -24,15 +24,15 @@ class ShowController extends Controller
     public function __invoke($uuid)
     {
         try{
-            $product  = $this->productRepository->getProduct($uuid); // get returned product from repository
+            $product  = $this->productRepository->getUser($uuid); // get returned product from repository
 
             if(!$product)
                 return response()->json([
-                    'message' => 'Product Not Found'
+                    'message' => 'User Not Found'
                 ], 404);
 
             return response()->json([
-                'data' =>new ProductResource($product),
+                'data' =>new UserResource($product),
 
             ]);
 

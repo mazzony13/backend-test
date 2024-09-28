@@ -8,9 +8,9 @@ use App\Models\Product;
 // class where repository interface implementation added
 class ProductRepository implements ProductRepositoryInterface
 {
-    public function getAllProducts()
+    public function getAllProducts($data)
     {
-        return Product::where('is_active')->get();
+        return auth()->user()->hasRole('super-admin') ? Product::paginate($data['per_page'] ?? 10) : Product::where('is_active',true)->paginate($data['per_page'] ?? 10);
     }
 
     public function getProduct($uuid)
@@ -20,7 +20,12 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function deleteProduct($uuid)
     {
-        Product::where('uuid',$uuid)->delete();
+        $product = Product::where('uuid',$uuid)->first(); //get product by uuid
+        if(!$product)
+            return false;
+
+       $product->delete();
+       return true;
     }
 
     public function createProduct(array $data)
@@ -67,7 +72,6 @@ class ProductRepository implements ProductRepositoryInterface
             $product->clearMediaCollection('product-image'); //remove old image if exists
             $product->addMedia($image)->toMediaCollection('product-image');
         }
-
     }
 
 }

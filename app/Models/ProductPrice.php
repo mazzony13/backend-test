@@ -19,4 +19,10 @@ class ProductPrice extends Model
         'type_id',
         'value',
     ];
+
+    public function type() // relation get type attached to product price
+    {
+        return $this->hasOne(UserType::class,'id','type_id');
+    }
+
 }

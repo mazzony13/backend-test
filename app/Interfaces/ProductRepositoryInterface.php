@@ -5,7 +5,7 @@ namespace App\Interfaces;
 //interface for procuct repository
 interface ProductRepositoryInterface
 {
-    public function getAllProducts();  //listing all products
+    public function getAllProducts(array $data);  //listing all products
     public function getProduct(string $uuid); //get product by UUID
     public function deleteProduct(string $uuid);  //delete product
     public function createProduct(array $data); //create new product

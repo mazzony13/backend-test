@@ -45,4 +45,9 @@ class Product extends Model implements HasMedia
             'value'=>$value
          ]);
     }
+
+    public function user_price() // get price by key
+    {
+        return $this->hasOne(ProductPrice::class,'product_id','id')->where('type_id',auth()->user()->type_id);
+    }
 }
