@@ -122,7 +122,10 @@ The api can be accessed at [http://localhost:8000/api](http://localhost:8000/api
 ***Note*** : You can quickly set the database information and other variables in this file and have the application fully working.
 
 ----------
-
+## Super admin Credentials 
+will be created after running php artisan db:seed
+Email : admin@backend-test.com
+Password : secret
 
 # Authentication
  
