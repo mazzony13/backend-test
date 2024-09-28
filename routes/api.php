@@ -55,25 +55,12 @@ Route::group(['prefix' => 'v1'], function () {
         Route::put('/{uuid}', User\UpdateController::class)->middleware('throttle:10,1'); // update user
         Route::delete('/{uuid}', User\DeleteController::class); //delete user
     });
+});
 
-    //user types route
-    Route::group(['prefix' => 'user-types'], function(){
-        //api rate limited to 10 times per minute
-        Route::middleware(['role:super-admin'])->group(function(){
-            //routes accessed by admin only
-            Route::post('/', UserType\CreateController::class); // create user type
-            Route::get('/{uuid}', UserType\ShowController::class); //show user type
-            Route::put('/{uuid}', UserType\UpdateController::class)->middleware('throttle:10,1'); // update user type
-            Route::delete('/{uuid}', UserType\DeleteController::class); //delete user type
-        });
-
-        //this one is public to allow users list available types on registration
-        Route::get('/', UserType\IndexController::class); //list user types (only admin can list all users)
-
-    });
-
-
-
+ //user types route
+ Route::group(['prefix' => 'user-types'], function(){
+    //this one is public to allow users list available types on registration
+    Route::get('/', UserType\IndexController::class); //list user types (only admin can list all users)
 });
 
 

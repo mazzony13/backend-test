@@ -33,7 +33,7 @@ class AdminUserSeeder extends Seeder
             'password' => 'secret',
             'username'=>'admin',
             'is_active'=>1,
-            'type_id'=>null,
+            'type'=>null,
         ]);
 
         //sync super admin role with admin

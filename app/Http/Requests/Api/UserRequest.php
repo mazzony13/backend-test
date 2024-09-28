@@ -27,14 +27,16 @@ class UserRequest extends FormRequest
             'email' => ['required', 'email',Rule::unique('users','email')->ignore($uuid,'uuid')],
             'name' => ['required', 'max:35'],
             'username'=>['required',Rule::unique('users','email')->ignore($uuid,'uuid')],
-            'type_id'=>['required', 'numeric','exists:user_types,id'],
+            'type'=>['required', Rule::in(array_keys(\App\Enums\UserType::values()))], //check user type exists in enums
             'avatar'=>['nullable','image'],
 
         ];
 
         if(!$uuid)
         {
-            return array_merge($rules, ['password' => 'required|min:6']); //handle password on update
+            return array_merge($rules, ['password' => 'required|min:6']); //handle password on create
+        }else{
+            return array_merge($rules, ['password' => 'nullable|min:6']); //handle password on update
         }
 
         if(auth()->user() && auth()->user()->hasRole('super-admin'))

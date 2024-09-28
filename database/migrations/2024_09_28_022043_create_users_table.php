@@ -19,14 +19,8 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->foreignId('type_id')->nullable();
+            $table->string('type')->nullable();
             $table->boolean('is_active')->default(1);
-
-            //user  type relationship
-            $table->foreign('type_id')
-            ->on('user_types')
-            ->references('id')
-            ->cascadeOnUpdate()->cascadeOnDelete();
 
             $table->rememberToken();
             $table->timestamps();

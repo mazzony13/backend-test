@@ -21,7 +21,7 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'avatar' => $this->getFirstMediaUrl('avatar'),
             'is_active' => $this->is_active,
-            'type'=>  $this->type ?  $this->type->name : null, // get user type
+            'type'=>  $this->type ?  \App\Enums\UserType::from($this->type)->value : null, // get user type
             'role'=>$this->roles()->first() ? $this->roles()->first()->name : null
         ];
     }

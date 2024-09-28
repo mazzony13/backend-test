@@ -27,7 +27,7 @@ class User extends Authenticatable implements HasMedia
         'name',
         'email',
         'username',
-        'type_id',
+        'type',
         'password',
         'is_active'
     ];
@@ -51,9 +51,4 @@ class User extends Authenticatable implements HasMedia
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
-    public function type()
-    {
-        return $this->hasOne(UserType::class,'id','type_id');
-    }
 }

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->string('slug');
+            $table->jsonb('price');
             $table->boolean('is_active')->default(1);
             $table->timestamps();
         });

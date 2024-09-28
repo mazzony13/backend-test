@@ -24,30 +24,14 @@ class Product extends Model implements HasMedia
         'uuid',
         'name',
         'description',
+        'price',
         'slug',
         'is_active'
     ];
 
+    //get stored price json in db as an array
+    protected $casts = [
+        'price' => 'array',
+    ];
 
-    public function prices()
-    {
-        return $this->hasMany(ProductPrice::class,'product_id','id');
-    }
-
-
-    //function to take name of user type and set product price value
-    public function set_price(string $key,$value)
-    {
-        $user_type_id = UserType::where('name',$key)->first()->id;
-         ProductPrice::create([
-            'type_id'=>$user_type_id,
-            'product_id'=>$this->id,
-            'value'=>$value
-         ]);
-    }
-
-    public function user_price() // get price by key
-    {
-        return $this->hasOne(ProductPrice::class,'product_id','id')->where('type_id',auth()->user()->type_id);
-    }
 }

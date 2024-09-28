@@ -3,6 +3,8 @@
 namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Enum;
 
 class RegisterRequest extends FormRequest
 {
@@ -23,12 +25,13 @@ class RegisterRequest extends FormRequest
      */
     public function rules()
     {
+
         return [
             'email' => ['required', 'email','unique:users,email'],
             'password' => 'required',
             'name' => ['required', 'max:35'],
             'username'=>['required','unique:users,username'],
-            'type_id'=>['required', 'numeric','exists:user_types,id'],
+            'type'=>['required',Rule::in(array_keys(\App\Enums\UserType::values()))], //get enum values
             'avatar'=>['nullable','image']
         ];
 

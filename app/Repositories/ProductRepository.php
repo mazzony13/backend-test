@@ -35,12 +35,6 @@ class ProductRepository implements ProductRepositoryInterface
         if(isset($data['image']))
         $this->saveImage($product,$data['image']);// attach image to product
 
-        //set product prices
-        foreach($data['price'] as $key=>$value)
-        {
-            $product->set_price($key,$value);
-        }
-
         return $product;
     }
 
@@ -53,15 +47,6 @@ class ProductRepository implements ProductRepositoryInterface
 
         if(isset($data['image'])) // update product image
         $this->saveImage($product,$data['image']);
-
-        $product->prices()->delete(); // delete old prices
-
-        //set product prices
-        foreach($data['price'] as $key=>$value)
-        {
-            $product->set_price($key,$value);
-        }
-
         return $product->update($data);
     }
 

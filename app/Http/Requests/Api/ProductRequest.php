@@ -29,7 +29,7 @@ class ProductRequest extends FormRequest
             'slug' => ['required', 'max:15'],
             'is_active'=>['nullable'],
             'image'=>['sometimes','image'],
-            'price'=>['required','array' ,'required_array_keys:'.implode(",",\App\Models\UserType::get()->pluck('name')->toArray())], //validate array keys to be generic based on user types data
+            'price'=>['required','array' ,'required_array_keys:'.implode(",",array_keys(\App\Enums\UserType::values()))], //validate array keys based on user types enum
             'price.*'=>['required','numeric'], // validate each item to be numeric
 
         ];
