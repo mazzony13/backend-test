@@ -34,6 +34,8 @@ class UserRequest extends FormRequest
 
         if(!$uuid)
         {
+            return array_merge($rules, ['password' => 'required|min:6']); //handle password on create
+        }else{
             return array_merge($rules, ['password' => 'required|min:6']); //handle password on update
         }
 

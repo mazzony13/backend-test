@@ -24,7 +24,7 @@ class LoginController extends Controller
         //check user credentials
         if (! Auth::attempt($credentials)) {
             return response()->json([
-                'message' => 'User not found'
+                'message' => 'Invalid Credentials'
             ], 401);
         }
 

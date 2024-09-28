@@ -28,7 +28,6 @@ class IndexController extends Controller
                 'data' => UserResource::collection($users)->response()->getData(),
             ]);
         }catch(\Exception $e){
-            dd($e);
             return response()->json([
                 'message' => 'Error Retrieving users'
             ], 500);

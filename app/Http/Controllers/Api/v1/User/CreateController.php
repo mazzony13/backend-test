@@ -22,15 +22,12 @@ class CreateController extends Controller
      */
     public function __invoke(UserRequest $request)
     {
-
         try{
             $user  = $this->userRepository->createUser($request->all()); // get returned user from repository
             return response()->json([
                 'message'       => 'User Created successfully',
             ]);
-
         }catch(\Exception $e){
-            //dd($e);
             return response()->json([
                 'message' => 'Error Occured on creating user'
             ], 500);

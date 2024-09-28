@@ -19,18 +19,17 @@ class UserRepository implements UserRepositoryInterface
 
     public function deleteUser(string $uuid)
     {
+        $user = User::where('uuid',$uuid)->first(); //get user by uuid
+        if(!$user)
+            return false;
+
         //check if admin will delete him self and he is the last admin so he couldn't delete his account
         if(auth()->user()->hasRole('super-admin'))
         {
             $admins = User::role('super-admin')->count();
-
             if($admins ==1)
                 return 'last-admin';
         }
-
-        $user = User::where('uuid',$uuid)->first(); //get user by uuid
-        if(!$user)
-            return false;
 
        $user->delete();
        return true;
